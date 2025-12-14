@@ -1,121 +1,78 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import { INITIAL_POSTS, CATEGORIES } from '../constants';
-import { generateBlogContent } from '../services/geminiService';
-import { BlogPost, Category } from '../types';
-import { Calendar, User, Clock, Share2, MessageCircle } from 'lucide-react';
-
-const BlogPostPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [content, setContent] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
-
-  // Find post metadata and load content
-  useEffect(() => {
-    const foundPost = INITIAL_POSTS.find(p => p.id === id);
-    if (foundPost) {
-      setPost(foundPost);
-      // Simulate checking if content exists, otherwise generate it
-      setLoading(true);
-      generateBlogContent(foundPost.title, foundPost.category)
-        .then(generatedText => {
-            setContent(generatedText);
-            setLoading(false);
-        })
-        .catch(() => setLoading(false));
-    }
-  }, [id]);
-
-  if (!post && !loading) {
-    return <div className="p-10 text-center">Post not found</div>;
-  }
-
-  const category: Category | undefined = CATEGORIES.find(c => c.id === post?.category);
-
+ 
+    export default function BlogPostPage() {
   return (
-    <div className="bg-white min-h-screen">
-      
-      {/* Article Header */}
-      {post && (
-        <div className="bg-gray-50 border-b border-gray-200 py-12">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <div className="mb-4">
-               {category && (
-                <Link to={`/category/${category.id}`} className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                  {category.hindiName}
-                </Link>
-               )}
-            </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
-              {post.title}
-            </h1>
-            <div className="flex items-center text-sm text-gray-500 space-x-6">
-              <span className="flex items-center gap-2"><User size={16} /> Tech Saathi Team</span>
-              <span className="flex items-center gap-2"><Calendar size={16} /> {post.date}</span>
-              <span className="flex items-center gap-2"><Clock size={16} /> {post.readTime}</span>
-            </div>
-          </div>
-        </div>
-      )}
+    <div style={{ padding: "20px", lineHeight: "1.9", maxWidth: "900px", margin: "auto" }}>
+      <h1>AI Se Online Paise Kaise Kamaye? (2025 Complete Hindi Guide)</h1>
 
-      {/* Main Content */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-        
-        {/* Featured Image */}
-        {post && (
-          <img 
-            src={post.imageUrl} 
-            alt={post.title} 
-            className="w-full h-auto rounded-xl shadow-md mb-10 object-cover"
-          />
-        )}
+      <p>
+        आज के समय में Artificial Intelligence (AI) सिर्फ एक technology नहीं रही,
+        बल्कि online income का एक नया ज़रिया बन चुकी है।
+        अगर आप student हैं, job करते हैं या घर से काम करना चाहते हैं,
+        तो AI आपके लिए बहुत useful हो सकती है।
+      </p>
 
-        {/* AI Loading State */}
-        {loading ? (
-          <div className="space-y-4 animate-pulse">
-             <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-             <div className="h-4 bg-gray-200 rounded w-full"></div>
-             <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-             <div className="h-32 bg-gray-100 rounded w-full my-6"></div>
-             <div className="h-4 bg-gray-200 rounded w-full"></div>
-             <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-             <p className="text-center text-gray-500 mt-4 text-sm font-medium">
-               🤖 AI is writing this article for you in Hindi...
-             </p>
-          </div>
-        ) : (
-          <article className="prose prose-lg prose-blue max-w-none text-gray-800">
-             {/* Render Markdown Content */}
-             <ReactMarkdown
-               components={{
-                 h2: ({node, ...props}) => <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4 border-l-4 border-blue-500 pl-4" {...props} />,
-                 h3: ({node, ...props}) => <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3" {...props} />,
-                 p: ({node, ...props}) => <p className="mb-4 leading-relaxed" {...props} />,
-                 ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 space-y-2 bg-gray-50 p-6 rounded-lg" {...props} />,
-                 li: ({node, ...props}) => <li className="text-gray-700" {...props} />,
-                 strong: ({node, ...props}) => <strong className="font-bold text-gray-900" {...props} />
-               }}
-             >
-               {content}
-             </ReactMarkdown>
-          </article>
-        )}
+      <p>
+        इस article में हम बिल्कुल simple Hindi में समझेंगे कि
+        AI की मदद से online पैसे कैसे कमाए जा सकते हैं,
+        वो भी बिना ज्यादा technical knowledge के।
+      </p>
 
-        {/* Share & Actions */}
-        <div className="mt-12 pt-8 border-t border-gray-200 flex flex-wrap gap-4">
-          <button className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
-            <Share2 size={18} /> WhatsApp Share
-          </button>
-          <button className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-            <Share2 size={18} /> Share on FB
-          </button>
-        </div>
+      <h2>AI क्या है? (Short में समझें)</h2>
+      <p>
+        AI का मतलब है Artificial Intelligence —
+        यानी ऐसी technology जो इंसान जैसे काम कर सकती है,
+        जैसे लिखना, बोलना, image बनाना, data समझना और decisions लेना।
+      </p>
 
-      </div>
-    </div>
-  );
-};
+      <h3>Popular AI Tools</h3>
+      <ul>
+        <li>ChatGPT</li>
+        <li>Gemini</li>
+        <li>Canva AI</li>
+        <li>Bing Image Creator</li>
+        <li>Automation Tools</li>
+      </ul>
 
-export default BlogPostPage;
+      <h2>AI से पैसे कमाने के Best तरीके</h2>
+
+      <h3>1️⃣ AI Content Writing (Blog / Article)</h3>
+      <p>
+        अगर आप लिखना जानते हैं या सीखना चाहते हैं,
+        तो AI आपका सबसे बड़ा helper बन सकता है।
+      </p>
+      <ul>
+        <li>AI से article का draft बनाएं</li>
+        <li>Simple Hindi में edit करें</li>
+        <li>Blogging या freelancing शुरू करें</li>
+      </ul>
+
+      <p><strong>Platforms:</strong> Apni website, Fiverr, Upwork, Medium</p>
+
+      <h3>2️⃣ AI से YouTube Script & Voiceover</h3>
+      <p>
+        YouTube Shorts और videos के लिए scripts की demand बहुत ज्यादा है।
+      </p>
+      <ul>
+        <li>ChatGPT से script</li>
+        <li>AI voice tools से narration</li>
+        <li>Simple video editing</li>
+      </ul>
+
+      <h3>3️⃣ AI Image & Design Work</h3>
+      <p>
+        AI tools से बिना Photoshop सीखे design work किया जा सकता है।
+      </p>
+      <ul>
+        <li>Thumbnails</li>
+        <li>Posters</li>
+        <li>Instagram posts</li>
+        <li>Blog images</li>
+      </ul>
+
+      <h3>4️⃣ AI Tools Affiliate Marketing</h3>
+      <p>
+        कई AI tools affiliate programs देते हैं।
+        Review लिखकर commission कमाया जा सकता है।
+      </p>
+
+      <h3
